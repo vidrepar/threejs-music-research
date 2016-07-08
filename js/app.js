@@ -10,6 +10,8 @@ var app = {
     camera  : null,
     renderer: null,
 
+    PARTICLE_NUM:100,
+
     init: function () {
 
         // Camera setup
@@ -42,8 +44,55 @@ var app = {
         container.append(app.renderer.domElement);
         $('body').append(container);
 
+    },
+    drawParticles:function () {
+
+        var PI2 = Math.PI*2;
+
+        var material = new THREE.SpriteCanvasMaterial({
+            color: 0x000000,
+            program: function (context) {
+                context.beginPath();
+                context.arc(0,0,1,0,PI2,true);
+                context.fill();
+
+            }
+        });
+
+        for (var i = 0; i < app.PARTICLE_NUM; i++) {
+
+            /*
+             * Sprite() is just a holder
+             * */
+            var particle = new THREE.Sprite(material);
+            particle.position.x = Math.random() * 2 - 1;
+            particle.position.y = Math.random() * 2 - 1;
+            particle.position.z = Math.random() * 2 - 1;
+            particle.position.normalize();
+            particle.position.multiplyScalar(Math.random()*10+450);
+            app.scene.add(particle);
+
+        }
+
+    },
+    render:function () {
+
+        app.renderer.render(app.scene, app.camera);
+
+    },
+    animate:function () {
+
+        requestAnimationFrame(app.animate);
+
+        /*
+        * Animate stuff
+        * */
+        app.render();
+
     }
 
 };
 
 app.init();
+app.drawParticles();
+app.animate();
