@@ -87,6 +87,8 @@ var app = {
         var m = new THREE.MeshLambertMaterial( {color: 0x7777ff} );
         app.sphere = new THREE.Mesh( app.sphereGeometry, m );
 
+        console.log(app.sphereGeometry);
+
         var light = new THREE.PointLight( 0xff0000, 1, 100 );
         light.position.set( 50, 50, 50 );
 
@@ -120,25 +122,42 @@ var app = {
 
         var fttAvg = Math.floor(sum/elmt.length);
 
+        scale = 1;
+
         if (fttAvg > 0 && fttAvg < 65) {
 
             //console.log('111');
             app.sphere.rotation.y += 10;
+            //app.sphereGeometry( 5, 10, 10 );
+
+            app.sphere.scale.x = scale*0.5
+            app.sphere.scale.y = scale*0.5;
+            app.sphere.scale.z = scale*0.5;
 
 
         } else if (fttAvg > 65 && fttAvg < 110) {
 
-            //console.log('222');
+            //console.log('222');;
             app.sphere.rotation.x += 7;
+            //app.sphereGeometry( 15, 10, 10 );
+
+            app.sphere.scale.x = scale*1.2;
+            app.sphere.scale.y = scale*1.2;
+            app.sphere.scale.z = scale*1.2;
 
         } else if (fttAvg > 110) {
 
             //console.log('333');
             app.sphere.rotation.y += 2;
+            //app.sphereGeometry( 25, 10, 10 );
+
+            app.sphere.scale.x = scale*1.8;
+            app.sphere.scale.y = scale*1.8;
+            app.sphere.scale.z = scale*1.8;
 
         }
 
-        console.log(fttAvg);
+        //console.log(fttAvg);
 
         // Visual animation
 
