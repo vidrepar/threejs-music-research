@@ -16,6 +16,8 @@
   ],
   "dependencies": {
     "three.js": "threejs#*",
-    "jquery": "^3.1.0"
+    "jquery": "^3.1.0",
+    "p5.js": "p5js#^0.5.2",
+    "pizzicato": "^0.2.0"
   }
 }
