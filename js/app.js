@@ -15,14 +15,9 @@ var app = {
     bufferLength:null,
     dataArray:null,
 
-    // visual
+    // Visual
     sphere  : null,
     sphereGeometry : null,
-
-    // audio
-    /*song    : null,
-    button    : null,
-    ftt    : null,*/
 
     PARTICLE_NUM:100,
 
@@ -67,8 +62,11 @@ var app = {
             source: 'file',
             options: { path: 'assets/sound/song-4.mp3' }
         }, function() {
+
             console.log('sound file loaded!');
             app.sound.play();
+            app.animate();
+
         });
 
         app.analyser = app.sound.getAnalyser();
@@ -87,7 +85,12 @@ var app = {
         var m = new THREE.MeshLambertMaterial( {color: 0x7777ff} );
         app.sphere = new THREE.Mesh( app.sphereGeometry, m );
 
-        console.log(app.sphereGeometry);
+        console.log(app.sphere.geometry.parameters.radius);
+
+        console.log(app.sphere.rotation);
+        console.log(app.sphere.position);
+        console.log(app.sphere.up);
+        console.log(app.sphere);
 
         var light = new THREE.PointLight( 0xff0000, 1, 100 );
         light.position.set( 50, 50, 50 );
@@ -122,49 +125,45 @@ var app = {
 
         var fttAvg = Math.floor(sum/elmt.length);
 
-        scale = 1;
+        /*TweenLite.to(app.sphere.rotation, 10, {
+            x:10,
+            y:1,
+            z:1,
+            ease: Quad.easeOut
+        });*/
+
+        /*TweenLite.to(app.sphere.position, 10, {
+            x:10,
+            y:10,
+            z:-100
+        });*/
+
+        TweenLite.to(app.sphere.scale, 0.1, {
+            x:2,
+            y:2,
+            z:2,
+            ease: Quad.easeInOut
+        });
+
+
+        //app.camera.rotation.y += 0.01;
+
+
 
         if (fttAvg > 0 && fttAvg < 65) {
 
-            //console.log('111');
-            app.sphere.rotation.y += 10;
-            //app.sphereGeometry( 5, 10, 10 );
 
-            app.sphere.scale.x = scale*0.5
-            app.sphere.scale.y = scale*0.5;
-            app.sphere.scale.z = scale*0.5;
 
 
         } else if (fttAvg > 65 && fttAvg < 110) {
 
-            //console.log('222');;
-            app.sphere.rotation.x += 7;
-            //app.sphereGeometry( 15, 10, 10 );
 
-            app.sphere.scale.x = scale*1.2;
-            app.sphere.scale.y = scale*1.2;
-            app.sphere.scale.z = scale*1.2;
 
         } else if (fttAvg > 110) {
 
-            //console.log('333');
-            app.sphere.rotation.y += 2;
-            //app.sphereGeometry( 25, 10, 10 );
 
-            app.sphere.scale.x = scale*1.8;
-            app.sphere.scale.y = scale*1.8;
-            app.sphere.scale.z = scale*1.8;
 
         }
-
-        //console.log(fttAvg);
-
-        // Visual animation
-
-
-
-
-
 
         app.render();
 
@@ -175,4 +174,3 @@ var app = {
 app.init();
 app.drawSphere();
 app.setupAudio();
-app.animate();
